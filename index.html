@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru" class="scroll-smooth">
 <head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>МАКС СТРОЙ | Эксплуатация и ремонт недвижимости</title>
+    <title>МАКС СТРОЙ | Федеральный оператор эксплуатации недвижимости</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,23 +23,17 @@
                             royal: '#1E40AF',
                             azure: '#3B82F6',
                             sky: '#F0F9FF',
-                            electric: '#60A5FA'
+                            electric: '#60A5FA',
+                            accent: '#F59E0B'
                         }
                     },
                     animation: {
                         'marquee': 'marquee 40s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
-                        'gradient-x': 'gradient-x 15s ease infinite',
                     },
                     keyframes: {
                         marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
-                        pulseSoft: { '0%, 100%': { opacity: 0.4 }, '50%': { opacity: 0.7 } },
-                        'gradient-x': {
-                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
-                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
-                        }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } }
                     }
                 }
             }
@@ -46,9 +41,10 @@
     </script>
     <style>
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-dark { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
         
         .hero-gradient { 
-            background: linear-gradient(-45deg, #0F172A, #1E40AF, #0F172A, #1e3a8a);
+            background: linear-gradient(-45deg, #0F172A, #172554, #1E40AF, #1e3a8a);
             background-size: 400% 400%;
             animation: gradient-shift 15s ease infinite;
             position: relative; 
@@ -61,36 +57,31 @@
             100% { background-position: 0% 50%; }
         }
 
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            mix-blend-mode: screen;
-            pointer-events: none;
-        }
-
-        .noise-overlay::before {
-            content: ""; position: absolute; inset: 0; z-index: 2;
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: 0.15; pointer-events: none; filter: contrast(150%) brightness(100%);
-        }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; mix-blend-mode: screen; pointer-events: none; }
+        .noise-overlay::before { content: ""; position: absolute; inset: 0; z-index: 2; background-image: url("https://grainy-gradients.vercel.app/noise.svg"); opacity: 0.15; pointer-events: none; }
 
         .bento-item { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(30, 64, 175, 0.05); }
-        .bento-item:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(30, 64, 175, 0.3); border-color: rgba(59, 130, 246, 0.5); }
+        .bento-item:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(30, 64, 175, 0.15); }
         
-        .magnetic-area { display: inline-block; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
-        
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #1E40AF; border-radius: 10px; }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-item.active .faq-content { max-height: 500px; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+
+        /* Стиль для анимации появления этапов */
+        .step-hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .step-visible { opacity: 1; transform: translateY(0); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-white text-brand-deep font-sans antialiased overflow-x-hidden">
 
-    <nav class="fixed w-full z-[150] bg-white/90 backdrop-blur-lg border-b border-slate-100 h-16 sm:h-20 flex items-center transition-all duration-300">
+    <nav class="fixed w-full z-[150] bg-white/80 backdrop-blur-md border-b border-slate-100 h-16 sm:h-20 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex justify-between items-center">
             <div class="flex items-center gap-3 group cursor-pointer">
-                <div class="w-10 h-10 bg-brand-royal rounded-lg flex items-center justify-center text-white font-black italic group-hover:rotate-12 transition-transform shadow-lg shadow-blue-900/20">M</div>
+                <div class="w-10 h-10 bg-brand-royal rounded-lg flex items-center justify-center text-white font-black italic">M</div>
                 <div class="flex flex-col">
                     <span class="font-extrabold tracking-tighter text-lg leading-none">МАКС <span class="text-brand-azure">СТРОЙ</span></span>
                     <span class="text-[9px] uppercase tracking-[0.2em] font-light text-slate-500 mt-1"><span class="text-brand-azure">эксплуатация</span>ремонт</span>
@@ -98,82 +89,75 @@
             </div>
             
             <div class="hidden lg:flex items-center space-x-8">
+                <a href="#about" class="text-sm font-semibold text-slate-600 hover:text-brand-royal transition-colors">О компании</a>
+                <a href="#services" class="text-sm font-semibold text-slate-600 hover:text-brand-royal transition-colors">Услуги</a>
+                <a href="#process" class="text-sm font-semibold text-slate-600 hover:text-brand-royal transition-colors">Этапы</a>
+                <a href="#portfolio" class="text-sm font-semibold text-slate-600 hover:text-brand-royal transition-colors">Объекты</a>
                 <div class="h-6 w-[1px] bg-slate-200"></div>
-                <a href="tel:+79294377770" class="text-base font-extrabold text-brand-royal hover:text-brand-azure transition-colors">+7 (929) 437-77-70</a>
-                <div class="magnetic-area">
-                    <a href="#contact" class="bg-brand-royal text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-brand-deep transition-all shadow-lg shadow-blue-900/10 block">Оставить заявку</a>
-                </div>
+                <a href="tel:+79294377770" class="text-base font-extrabold text-brand-royal">+7 (929) 437-77-70</a>
+                <a href="#contact" class="bg-brand-royal text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-brand-deep transition-all">Заявка</a>
             </div>
 
-            <button id="menuBtn" class="lg:hidden p-2 text-brand-deep hover:bg-slate-100 rounded-lg relative z-[160]">
+            <button id="menuBtn" class="lg:hidden p-2 text-brand-deep relative z-[160]">
                 <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
             </button>
         </div>
     </nav>
 
     <div id="menuOverlay" class="fixed inset-0 bg-brand-deep/40 backdrop-blur-sm z-[140] opacity-0 pointer-events-none transition-opacity duration-300"></div>
-    <div id="mobileMenu" class="fixed top-0 right-0 h-full w-[280px] bg-white z-[145] shadow-2xl translate-x-full transition-transform duration-500 ease-out lg:hidden pt-24 px-6 border-l border-slate-100">
+    <div id="mobileMenu" class="fixed top-0 right-0 h-full w-[280px] bg-white z-[145] shadow-2xl translate-x-full transition-transform duration-500 ease-out lg:hidden pt-24 px-6">
         <div class="flex flex-col gap-6">
-            <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 mb-2">Навигация</p>
-            <a href="#services" class="mobile-link text-xl font-bold text-brand-deep hover:text-brand-royal transition-colors">Услуги</a>
-            <a href="#contact" class="mobile-link text-xl font-bold text-brand-deep hover:text-brand-royal transition-colors">Рассчитать проект</a>
-            
+            <a href="#services" class="mobile-link text-lg font-bold text-brand-deep">Услуги</a>
+            <a href="#process" class="mobile-link text-lg font-bold text-brand-deep">Как мы работаем</a>
+            <a href="#portfolio" class="mobile-link text-lg font-bold text-brand-deep">Наши объекты</a>
+            <a href="#contact" class="mobile-link text-lg font-bold text-brand-deep">Контакты</a>
             <div class="h-[1px] bg-slate-100 my-2"></div>
-            
-            <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 mb-2">Контакты</p>
             <a href="tel:+79294377770" class="text-lg font-extrabold text-brand-royal">+7 (929) 437-77-70</a>
-            <a href="mailto:89501126123@mail.ru" class="text-sm font-medium text-slate-500">89501126123@mail.ru</a>
-            
-            <a href="#contact" class="mobile-link mt-4 bg-brand-royal text-white px-6 py-4 rounded-xl text-center font-bold shadow-lg shadow-blue-900/10">Оставить заявку</a>
         </div>
     </div>
 
-    <section class="hero-gradient noise-overlay min-h-screen flex items-center pt-20 overflow-hidden">
+    <section class="hero-gradient noise-overlay min-h-screen flex items-center pt-24 pb-12 overflow-hidden relative">
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div id="blob1" class="blob w-[600px] h-[600px] bg-brand-royal/40 top-[-10%] left-[-10%]"></div>
             <div id="blob2" class="blob w-[500px] h-[500px] bg-brand-azure/30 bottom-[-5%] right-[-5%]"></div>
-            <div id="blob3" class="blob w-[400px] h-[400px] bg-brand-electric/20 top-[30%] left-[40%]"></div>
-            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGZSIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIj48cGF0aCBkPSJNMCA0MGg0MFYwSDB6Ii8+PHBhdGggZD0iTTAgMEw0MCA0ME00MCAwTDAgNDAiLz48L2c+PC9zdmc+')] opacity-20"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="text-white">
+            <div class="text-white text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full mb-8 border border-white/10">
-                    <span class="w-2 h-2 bg-brand-electric rounded-full animate-pulse shadow-[0_0_10px_#60A5FA]"></span>
-                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">Федеральный оператор эксплуатации</span>
+                    <span class="w-2 h-2 bg-brand-electric rounded-full animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em]">Работаем по всей России</span>
                 </div>
                 
-                <h1 id="heroTitle" class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-8">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-8 tracking-tight">
                     Инженерия <br> 
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-electric to-white italic pr-2">высшего</span> порядка
                 </h1>
 
-                <p class="text-lg text-blue-100/80 mb-10 max-w-xl leading-relaxed font-light">
-                    Комплексное техническое обслуживание коммерческой недвижимости по всей России. Гарантируем бесперебойную работу ваших объектов.
+                <p class="text-lg text-blue-100/80 mb-10 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    Комплексное техническое обслуживание коммерческой недвижимости. Снижаем эксплуатационные расходы до 30%.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-5">
-                    <div class="magnetic-area">
-                        <a href="#contact" class="bg-brand-azure text-white px-8 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-brand-royal transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20">
-                            <i data-lucide="calculator" class="w-6 h-6"></i> Рассчитать проект
-                        </a>
-                    </div>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                    <a href="#contact" class="bg-brand-azure text-white px-8 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-brand-royal transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20">
+                        <i data-lucide="calculator" class="w-6 h-6"></i> Рассчитать стоимость
+                    </a>
                 </div>
             </div>
 
-            <div class="relative mt-12 lg:mt-0">
-                <div class="relative z-10 animate-float" id="heroImage">
+            <div class="relative mt-8 lg:mt-0 px-4 sm:px-0">
+                <div class="relative z-10 animate-float">
                     <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
-                         class="rounded-[3rem] shadow-2xl border border-white/10 transform rotate-2 w-full h-auto object-cover" alt="Office">
+                         class="rounded-[2rem] sm:rounded-[3rem] shadow-2xl border border-white/10 w-full h-auto object-cover transform rotate-1 sm:rotate-2" alt="Office">
                     
-                    <div class="absolute -bottom-6 left-4 sm:-bottom-10 sm:-left-10 glass p-6 sm:p-8 rounded-[2rem] shadow-2xl max-w-[85%] sm:max-w-none">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-azure/20 rounded-2xl flex items-center justify-center shrink-0">
-                                <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8 text-brand-electric"></i>
+                    <div class="absolute -bottom-6 -left-2 sm:-bottom-10 sm:-left-10 glass-dark p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-2xl max-w-[180px] sm:max-w-xs border-t border-white/10">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-14 sm:h-14 bg-brand-azure rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
+                                <i data-lucide="check-circle" class="w-6 h-6 sm:w-8 sm:h-8 text-white"></i>
                             </div>
                             <div>
-                                <p class="text-brand-electric font-black text-3xl sm:text-4xl mb-1 counter">150</p>
-                                <p class="text-white text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-60 leading-tight">Объектов на обслуживании</p>
+                                <p class="text-white font-black text-xl sm:text-3xl mb-1 counter">150</p>
+                                <p class="text-slate-300 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest leading-tight">Объектов на обслуживании</p>
                             </div>
                         </div>
                     </div>
@@ -182,11 +166,36 @@
         </div>    
     </section>
 
+    <section class="py-12 bg-white border-b border-slate-100 relative z-20 -mt-10 rounded-t-[3rem] mx-4 sm:mx-0 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-100">
+                <div class="text-center">
+                    <p class="text-4xl font-black text-brand-deep mb-2">8</p>
+                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Лет опыта</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-black text-brand-deep mb-2">24/7</p>
+                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Поддержка</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-black text-brand-deep mb-2">50+</p>
+                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Техников</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-black text-brand-deep mb-2">1 ч</p>
+                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Реагирование</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="services" class="py-24 bg-brand-sky relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center lg:text-left mb-20">
-                <h2 class="text-4xl lg:text-6xl font-extrabold text-brand-deep mb-6">Наши компетенции</h2>
-                <p class="text-slate-500 text-lg max-w-2xl">Профессиональный подход к каждому узлу вашей инженерной системы.</p>
+            <div class="text-center lg:text-left mb-16 flex flex-col lg:flex-row justify-between items-end gap-6">
+                <div class="max-w-2xl">
+                    <span class="text-brand-azure font-bold tracking-wider uppercase text-sm mb-2 block">Компетенции</span>
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-brand-deep leading-tight">Полный цикл <br>обслуживания здания</h2>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -197,26 +206,29 @@
                         </div>
                         <h3 class="text-2xl lg:text-3xl font-bold mb-4 text-brand-deep">Техническая эксплуатация</h3>
                         <p class="text-slate-500 mb-8 text-sm lg:text-base leading-relaxed">Системное обслуживание всех инженерных сетей здания с гарантией бесперебойной работы.</p>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Электроснабжение
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Электроснабжение
                             </li>
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Водоснабжение
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Водоснабжение
                             </li>
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Системы безопасности
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Системы безопасности
                             </li>
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Теплоснабжение
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Теплоснабжение
                             </li>
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Системы вентиляции и кондиционирования
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Вентиляция и кондиционирование
                             </li>
-                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700 bg-slate-50 p-3 rounded-xl">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-azure"></i> Освещение
+                            <li class="flex items-center gap-3 text-xs font-bold text-slate-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-azure"></span> Освещение
                             </li>
                         </ul>
+                    </div>
+                    <div class="lg:w-1/3 relative min-h-[200px] rounded-2xl overflow-hidden">
+                        <img src=5.png class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Engineer">
                     </div>
                 </div>
 
@@ -227,36 +239,104 @@
                             <i data-lucide="wind" class="w-6 h-6 text-brand-electric"></i>
                         </div>
                         <h3 class="text-xl lg:text-2xl font-bold mb-3">Вентиляция и климат</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed group-hover:text-blue-100 transition-colors">Обслуживание и ремонт систем кондиционирования и вентиляции любой сложности.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed group-hover:text-blue-100 transition-colors">Чистка, дезинфекция, ремонт систем кондиционирования и вентиляции любой сложности.</p>
                     </div>
-                </div>
+               </div>
 
-                <div class="bento-item bg-brand-royal p-8 rounded-[2.5rem] text-white group relative overflow-hidden">
+                <div class="bento-item bg-white p-8 rounded-[2.5rem] group relative overflow-hidden flex flex-col justify-between">
                     <div class="relative z-10">
-                        <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mb-6">
-                            <i data-lucide="paint-roller" class="w-5 h-5"></i>
+                        <div class="w-12 h-12 bg-brand-sky rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-brand-royal"></i>
                         </div>
-                        <h3 class="text-xl lg:text-2xl font-bold mb-3">Ремонт помещений</h3>
-                        <p class="text-blue-100 text-xs opacity-80">Отделочные работы любой сложности для складов и офисов.</p>
+                        <h3 class="text-xl lg:text-2xl font-bold mb-3 text-brand-deep">Клининг</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Уборка офисов, ТЦ и складских помещений. Идеальная чистота вашего бизнеса.</p>
                     </div>
                 </div>
 
-                <div class="md:col-span-2 bento-item bg-white p-8 lg:p-10 rounded-[2.5rem] flex items-center gap-8 group">
-                    <div class="hidden sm:flex w-24 h-24 lg:w-32 lg:h-32 bg-brand-sky rounded-full items-center justify-center shrink-0 shadow-lg">
-                        <i data-lucide="award" class="w-10 h-10 lg:w-16 lg:h-16 text-brand-royal"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3 mb-4">
-                            <span class="px-3 py-1 bg-brand-royal text-[10px] font-black text-white rounded-full uppercase">ГОСТ и СРО</span>
-                            <h3 class="text-xl lg:text-2xl font-bold text-brand-deep">Допуски и лицензии</h3>
+                <div class="md:col-span-2 bento-item bg-brand-royal p-8 lg:p-12 rounded-[2.5rem] flex flex-col lg:flex-row gap-8 group relative overflow-hidden text-white">
+                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex-1">
+                        <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-md">
+                            <i data-lucide="paint-roller" class="w-7 h-7 text-white"></i>
                         </div>
-                        <p class="text-slate-500 text-sm mb-6">Наличие всех лицензий и допусков</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold mb-4">Косметический ремонт</h3>
+                        <p class="text-blue-100 text-sm lg:text-base leading-relaxed mb-6 opacity-90">Отделочные работы для офисов, складов и торговых площадей. Восстановление помещений после износа.</p>
+                        
+                        <div class="flex items-center gap-4">
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">Малярные работы</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">Плитка</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">Гипсокартон</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">Электрика</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">Сантехника</span>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/3 relative min-h-[200px] rounded-2xl overflow-hidden shadow-2xl">
+                         <img src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?auto=format&fit=crop&w=400&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 hover:opacity-100" alt="Repair">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="process" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-brand-azure font-bold tracking-wider uppercase text-sm mb-2 block">Алгоритм</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-brand-deep">Как мы начинаем работу</h2>
+            </div>
+
+            <div class="relative">
+                <div class="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-slate-100 z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10" id="stepsContainer">
+                    <div class="step-card step-hidden">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-sky rounded-full flex items-center justify-center mb-6 relative mx-auto lg:mx-0 shadow-lg">
+                            <span class="text-3xl font-black text-brand-royal">01</span>
+                            <div class="absolute -top-2 -right-2 w-8 h-8 bg-brand-royal text-white rounded-full flex items-center justify-center">
+                                <i data-lucide="search" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-deep mb-3 text-center lg:text-left">Технический аудит</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed text-center lg:text-left">Выезжаем на объект, проводим дефектовку и замеры.</p>
+                    </div>
+
+                    <div class="step-card step-hidden" style="transition-delay: 150ms;">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-sky rounded-full flex items-center justify-center mb-6 relative mx-auto lg:mx-0 shadow-lg">
+                            <span class="text-3xl font-black text-brand-royal">02</span>
+                            <div class="absolute -top-2 -right-2 w-8 h-8 bg-brand-royal text-white rounded-full flex items-center justify-center">
+                                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-deep mb-3 text-center lg:text-left">Расчет сметы</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed text-center lg:text-left">Готовим коммерческое предложение в течение суток.</p>
+                    </div>
+
+                    <div class="step-card step-hidden" style="transition-delay: 300ms;">
+                        <div class="w-24 h-24 bg-white border-4 border-brand-sky rounded-full flex items-center justify-center mb-6 relative mx-auto lg:mx-0 shadow-lg">
+                            <span class="text-3xl font-black text-brand-royal">03</span>
+                            <div class="absolute -top-2 -right-2 w-8 h-8 bg-brand-royal text-white rounded-full flex items-center justify-center">
+                                <i data-lucide="pen-tool" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-deep mb-3 text-center lg:text-left">Договор и запуск</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed text-center lg:text-left">Подписываем документы и выводим бригаду на объект.</p>
+                    </div>
+
+                    <div class="step-card step-hidden" style="transition-delay: 450ms;">
+                        <div class="w-24 h-24 bg-brand-royal border-4 border-brand-royal rounded-full flex items-center justify-center mb-6 relative mx-auto lg:mx-0 shadow-xl shadow-blue-200">
+                            <span class="text-3xl font-black text-white">04</span>
+                            <div class="absolute -top-2 -right-2 w-8 h-8 bg-brand-electric text-white rounded-full flex items-center justify-center">
+                                <i data-lucide="play" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-deep mb-3 text-center lg:text-left">Эксплуатация</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed text-center lg:text-left">Регулярные выезды и аварийное реагирование 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="bg-brand-deep py-5 border-y border-white/10 overflow-hidden relative group">
         <div class="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-brand-deep to-transparent z-10 pointer-events-none"></div>
         <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-brand-deep to-transparent z-10 pointer-events-none"></div>
@@ -310,7 +390,37 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 lg:py-32 bg-brand-deep relative overflow-hidden">
+    <section id="portfolio" class="py-24 bg-brand-deep text-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-extrabold mb-12">Наши работы</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="rounded-[2rem] overflow-hidden group relative aspect-[3/4]">
+                    <img src=1.png class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Project">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-xl font-bold">Электромонтаж</h3>
+                        <p class="text-slate-300 text-sm">Подключение ИБП к сети объекта</p>
+                    </div>
+                </div>
+                <div class="rounded-[2rem] overflow-hidden group relative aspect-[3/4]">
+                    <img src=2.jpg class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Project">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-xl font-bold">Вентиляция</h3>
+                        <p class="text-slate-300 text-sm">Обслуживание вентиляции</p>
+                    </div>
+                </div>
+                 <div class="rounded-[2rem] overflow-hidden group relative aspect-[3/4]">
+                    <img src=4.png class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Project">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end">
+                        <h3 class="text-xl font-bold">Малярные работы</h3>
+                        <p class="text-slate-300 text-sm">Крупные площади бизнес-центра</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+        <section id="contact" class="py-16 lg:py-32 bg-brand-deep relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="bg-white rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row">
                 <div class="lg:w-2/5 p-8 lg:p-12 bg-brand-royal text-white relative">
@@ -357,19 +467,44 @@
         </div>
     </section>
 
-    <footer class="bg-brand-deep text-slate-500 py-16 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="flex flex-col items-center gap-1 mb-10">
-                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-brand-deep font-black italic mb-2">M</div>
-                <span class="font-extrabold tracking-tighter text-xl text-white">МАКС СТРОЙ</span>
-                <span class="text-[9px] uppercase tracking-[0.2em] font-light text-slate-500 mt-1"><span class="text-brand-azure">эксплуатация</span>ремонт</span>
+    <footer class="bg-brand-deep text-slate-400 py-16 border-t border-white/5 text-sm">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div class="flex flex-col items-start gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-brand-deep font-black italic">M</div>
+                    <span class="font-extrabold tracking-tighter text-lg text-white">МАКС СТРОЙ</span>
+                </div>
+                <p class="text-slate-500 leading-relaxed">Профессиональная эксплуатация и ремонт коммерческой недвижимости. Надежный партнер для вашего бизнеса.</p>
             </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">Услуги</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-brand-electric transition-colors">Техническая эксплуатация</a></li>
+                    <li><a href="#" class="hover:text-brand-electric transition-colors">Обслуживание вентиляции</a></li>
+                    <li><a href="#" class="hover:text-brand-electric transition-colors">Косметический ремонт</a></li>
+                    <li><a href="#" class="hover:text-brand-electric transition-colors">Клининг</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">Контакты</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4"></i> +7 (929) 437-77-70</li>
+                    <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4"></i> 89501126123@mail.ru</li>
+                    <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4"></i> г. Иркутск</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 МАКС СТРОЙ. Все права защищены.</p>
         </div>
     </footer>
 
     <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[110]">
         <div class="magnetic-wrap">
-            <a href="tel:+79294377770" class="w-14 h-14 bg-brand-royal shadow-2xl rounded-full flex items-center justify-center text-white hover:scale-110 transition-all relative">
+            <a href="tel:+79294377770" class="w-14 h-14 bg-brand-royal shadow-2xl rounded-full flex items-center justify-center text-white hover:scale-110 transition-all relative border-4 border-white/10">
                 <i data-lucide="phone" class="w-6 h-6"></i>
                 <span class="absolute inset-0 rounded-full bg-brand-electric animate-ping opacity-20"></span>
             </a>
@@ -379,102 +514,47 @@
     <script>
         lucide.createIcons();
 
-        // Бургер меню (Drawer)
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuOverlay = document.getElementById('menuOverlay');
         const menuIcon = document.getElementById('menuIcon');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
         let isMenuOpen = false;
 
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
-            
-            if (isMenuOpen) {
-                mobileMenu.style.transform = 'translateX(0)';
-                menuOverlay.style.opacity = '1';
-                menuOverlay.style.pointerEvents = 'auto';
-                menuIcon.setAttribute('data-lucide', 'x');
-                document.body.style.overflow = 'hidden';
-            } else {
-                mobileMenu.style.transform = 'translateX(100%)';
-                menuOverlay.style.opacity = '0';
-                menuOverlay.style.pointerEvents = 'none';
-                menuIcon.setAttribute('data-lucide', 'menu');
-                document.body.style.overflow = 'auto';
-            }
+            mobileMenu.style.transform = isMenuOpen ? 'translateX(0)' : 'translateX(100%)';
+            menuOverlay.style.opacity = isMenuOpen ? '1' : '0';
+            menuOverlay.style.pointerEvents = isMenuOpen ? 'auto' : 'none';
+            menuIcon.setAttribute('data-lucide', isMenuOpen ? 'x' : 'menu');
             lucide.createIcons();
         }
-
         menuBtn.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // GSAP Анимации
-        gsap.to("#blob1", { duration: 20, x: "40vw", y: "20vh", rotation: 360, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to("#blob2", { duration: 25, x: "-30vw", y: "-40vh", rotation: -360, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to("#blob3", { duration: 15, x: "20vw", y: "-10vh", scale: 1.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        const observerOptions = { threshold: 0.2 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.step-card');
+                    cards.forEach(card => card.classList.add('step-visible'));
+                }
+            });
+        }, observerOptions);
 
+        observer.observe(document.getElementById('process'));
+
+        // Counter Logic
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
             const target = +counter.innerText;
             const animate = () => {
                 const value = +counter.innerText;
-                const increment = target / 100;
                 if (value < target) {
-                    counter.innerText = Math.ceil(value + increment);
+                    counter.innerText = Math.ceil(value + target/100);
                     setTimeout(animate, 20);
-                } else {
-                    counter.innerText = target + '+';
-                }
+                } else { counter.innerText = target + '+'; }
             };
             animate();
-        });
-
-        const title = document.getElementById('heroTitle');
-        gsap.from(title, { opacity: 0, y: 30, duration: 1, delay: 0.5 });
-
-        // Web3Forms Logic
-        const form = document.getElementById('calcForm');
-        const submitBtn = document.getElementById('submitBtn');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Отправка...</span>';
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-            .then(async (response) => {
-                let json = await response.json();
-                if (response.status == 200) {
-                    alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
-                } else {
-                    console.log(response);
-                    alert('Ошибка: ' + json.message);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Произошла ошибка при отправке формы.');
-            })
-            .then(function() {
-                form.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Отправить</span>';
-            });
         });
     </script>
 </body>
