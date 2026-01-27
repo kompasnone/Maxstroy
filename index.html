@@ -30,10 +30,12 @@
                     animation: {
                         'marquee': 'marquee 40s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
                     },
                     keyframes: {
                         marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -438,7 +440,7 @@
                 </div>
 
                 <div class="lg:w-3/5 p-8 lg:p-12 bg-slate-50">
-                    <form action="https://api.web3forms.com/submit" method="POST" id="calcForm" class="space-y-6">
+                    <form id="calcForm" class="space-y-6">
                         <input type="hidden" name="access_key" value="a1de65f3-ef3c-476b-bbcc-ed60550eb95e">
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -547,6 +549,52 @@
                 } else { counter.innerText = target + '+'; }
             };
             animate();
+        });
+
+        // Form handling Logic (No Redirect)
+        const form = document.getElementById('calcForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const originalBtnContent = submitBtn.innerHTML;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Отправка...</span>';
+
+            const formData = new FormData(form);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                if (response.status === 200) {
+                     // Show success message INSIDE the form container
+                     form.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-full py-10 text-center animate-fade-in">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-brand-deep mb-2">Заявка отправлена!</h3>
+                            <p class="text-slate-500">Мы свяжемся с вами в ближайшее время.</p>
+                        </div>
+                     `;
+                     lucide.createIcons();
+                } else {
+                    console.log("response error", response);
+                    alert('Произошла ошибка при отправке. Пожалуйста, попробуйте позже.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnContent;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Произошла ошибка соединения.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            });
         });
     </script>
 </body>
