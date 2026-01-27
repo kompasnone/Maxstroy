@@ -4,13 +4,54 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>МАКС СТРОЙ | Федеральный оператор эксплуатации недвижимости</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>МАКС СТРОЙ | Эксплуатация недвижимости и ремонт в Иркутске и РФ</title>
+    <meta name="description" content="Комплексное техническое обслуживание зданий, клининг и косметический ремонт коммерческой недвижимости. Снижаем расходы на эксплуатацию до 30%. Работаем в Иркутске и по всей России.">
+    <meta name="keywords" content="техническая эксплуатация зданий, ремонт офисов, клининг, обслуживание вентиляции, МАКС СТРОЙ, Иркутск, обслуживание недвижимости">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="МАКС СТРОЙ">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ваш-домен.ru/">
+    <meta property="og:title" content="МАКС СТРОЙ | Федеральный оператор недвижимости">
+    <meta property="og:description" content="Профессиональная эксплуатация, ремонт и клининг коммерческой недвижимости. Аварийный выезд 24/7.">
+    <meta property="og:image" content="https://ваш-домен.ru/og-image.jpg"> <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GeneralContractor",
+      "name": "МАКС СТРОЙ",
+      "image": "https://ваш-домен.ru/logo.png",
+      "description": "Федеральный оператор эксплуатации недвижимости. Ремонт, клининг, техническое обслуживание.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Иркутск",
+        "addressCountry": "RU"
+      },
+      "telephone": "+79294377770",
+      "email": "semionmaxstroy@mail.ru",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "priceRange": "$$"
+    }
+    </script>
 
     <script>
         tailwind.config = {
@@ -69,7 +110,6 @@
         .faq-item.active .faq-content { max-height: 500px; }
         .faq-item.active .faq-icon { transform: rotate(180deg); }
 
-        /* Стиль для анимации появления этапов */
         .step-hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .step-visible { opacity: 1; transform: translateY(0); }
 
@@ -599,3 +639,4 @@
     </script>
 </body>
 </html>
+
