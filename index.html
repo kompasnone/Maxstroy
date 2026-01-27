@@ -543,7 +543,6 @@
 
         observer.observe(document.getElementById('process'));
 
-        // Counter Logic
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
             const target = +counter.innerText;
@@ -557,5 +556,52 @@
             animate();
         });
     </script>
+const form = document.getElementById('calcForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Визуальная индикация загрузки
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "<span>Отправка...</span>";
+
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+            submitBtn.innerHTML = "<span>Успешно отправлено!</span>";
+            submitBtn.classList.replace('bg-brand-deep', 'bg-green-600');
+            form.reset();
+        } else {
+            console.log(response);
+            submitBtn.innerHTML = "<span>Ошибка</span>";
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        submitBtn.innerHTML = "<span>Ошибка сети</span>";
+    })
+    .finally(() => {
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.classList.replace('bg-green-600', 'bg-brand-deep');
+        }, 3000);
+    });
+});    
 </body>
 </html>
+
