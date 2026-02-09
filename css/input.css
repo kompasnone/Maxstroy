@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* 1. Настройка вашей темы (цвета, шрифты, анимации) */
+@theme {
+  --font-sans: "Inter", "sans-serif";
+
+  /* Ваши фирменные цвета МАКС СТРОЙ */
+  --color-brand-deep: #0f172a;
+  --color-brand-royal: #1e40af;
+  --color-brand-azure: #3b82f6;
+  --color-brand-sky: #f0f9ff;
+  --color-brand-electric: #60a5fa;
+  --color-brand-accent: #f59e0b;
+
+  /* Анимации */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+
+  @keyframes marquee {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* 2. Ваши кастомные компоненты */
+@utility glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility glass-dark {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@utility hero-gradient {
+  background: linear-gradient(-45deg, #0f172a, #172554, #1e40af, #1e3a8a);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@utility bento-item {
+  @apply transition-all duration-500 border border-blue-800/5;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 3. Обычные стили (не через @apply) */
+.bento-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px -12px rgba(30, 64, 175, 0.15);
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; mix-blend-mode: screen; pointer-events: none; }
+.noise-overlay::before { content: ""; position: absolute; inset: 0; z-index: 2; background-image: url("https://grainy-gradients.vercel.app/noise.svg"); opacity: 0.15; pointer-events: none; }
+
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.faq-item.active .faq-content { max-height: 500px; }
+.faq-item.active .faq-icon { transform: rotate(180deg); }
+
+/* Стили скроллбара */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
