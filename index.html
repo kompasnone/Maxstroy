@@ -469,7 +469,13 @@
                 <ul class="space-y-3">
                     <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4"></i> +7 (929) 437-77-70</li>
                     <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4"></i> 89501126123@mail.ru</li>
-                    <li class="flex items-center gap-3"><i data-lucide="briefcase-business" class="w-4 h-4"></i> ИП Симанович Ю. А.</li>
+                    <li id="simanovich-trigger" class="flex items-center gap-3 cursor-pointer select-none group transition-colors hover:text-white w-fit">
+                        <i data-lucide="briefcase-business" class="w-4 h-4 shrink-0"></i> 
+                        <span class="relative flex items-center">
+                            <span>ИП Симанович Ю. А.</span>
+                            <span id="bicep-emoji" class="opacity-0 -translate-x-4 pointer-events-none transition-all duration-500 ease-out ml-2 inline-block">💪🏼</span>
+                        </span>
+                    </li>
                     <li class="flex items-center gap-3"><i data-lucide="badge-check" class="w-4 h-4"></i> ИНН 380103834511</li>
                 </ul>
             </div>
@@ -531,8 +537,31 @@
             };
             animate();
         });
+// Пасхалка: Бицепс
+const trigger = document.getElementById('simanovich-trigger');
+const emoji = document.getElementById('bicep-emoji');
+let isAnimating = false;
 
-        // Form handling Logic (No Redirect)
+if (trigger && emoji) {
+    trigger.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        // Выезжает и проявляется
+        emoji.classList.remove('opacity-0', '-translate-x-4');
+        emoji.classList.add('opacity-100', 'translate-x-0');
+
+        setTimeout(() => {
+            // Уезжает и исчезает
+            emoji.classList.remove('opacity-100', 'translate-x-0');
+            emoji.classList.add('opacity-0', '-translate-x-4');
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500); // время совпадает с duration-500 в HTML
+        }, 1200);
+    });
+}        // Form handling Logic (No Redirect)
         const form = document.getElementById('calcForm');
         const submitBtn = document.getElementById('submitBtn');
         const originalBtnContent = submitBtn.innerHTML;
@@ -577,8 +606,8 @@
                 submitBtn.innerHTML = originalBtnContent;
             });
         });
+        
     </script>
 </body>
 </html>
-
 
